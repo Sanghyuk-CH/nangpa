@@ -1,0 +1,12 @@
+*.scss
+*.css
+*.style.tsx
+/node_modules
+/build
+/public
+/translate
+/.storybook
+vite.config.ts
+/src/setupTests.ts
+**/mock
+*.stories.tsx

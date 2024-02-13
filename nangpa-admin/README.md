@@ -1,0 +1,2 @@
+# nangpa-admin
+admin nangpa

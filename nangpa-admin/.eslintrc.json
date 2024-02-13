@@ -1,0 +1,95 @@
+{
+  "plugins": ["@typescript-eslint", "react-hooks", "prettier", "file-progress"],
+  "extends": [
+    "airbnb",
+    "plugin:import/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "prettier"
+  ],
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    // 0 -> off, 1 -> warning, 2 -> error
+    "file-progress/activate": 1,
+    "react/require-default-props": "off", // 옵셔널 props에 대해 default props를 설정해줘야 하는 rule
+    "no-use-before-define": "off", // 선언하기 전에 사용하는 것을 방지하는 룰
+    "prettier/prettier": "off",
+    "import/extensions": [
+      // import 경로 내에 파일 확장자의 일관성 보장 never -> 확장자 사용 불가능
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "react/jsx-filename-extension": [
+      // jsx문법 사용 시 파일확장자 jsx만 허용하는 린트 룰, 확장가능(.js, .jsx, .ts, .tsx 로 확장함)
+      1,
+      {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    ],
+    "import/no-extraneous-dependencies": 0,
+    "@typescript-eslint/no-use-before-define": [
+      // 변수, 함수를 선언하기 전에 사용하는 것을 방지
+      "error"
+    ],
+    "no-shadow": "off", // 로컬 변수가 포함하는 범위의 변수와 동일한 이름을 공유하는 프로세스에 선언된 변수 선언금지
+    "@typescript-eslint/no-shadow": "error", // 잘못된 오류 발생을 할 수 있으니 기본 no-shadow off하고 사용
+    "react/no-unused-prop-types": "off", // props에 선언하고 사용하지 않을 때 error
+    "react/jsx-key": "off", // key props 넘기지 않을 때 warn
+    "react/jsx-no-bind": "off", // arrow function or bind call 을 jsx props로 넘기면 성능 저하가 올 수 있으니 사용 금지하는 린트
+    "jsx-a11y/click-events-have-key-events": "off", // onClick 이벤트는 onKeyup, onKeyDown, onKeyPress중 하나 이상의 이벤트가 동반되므로 버튼 요소가 아닌 이상 <div onClick={() => {}} onKeyUp={() => {}} />과 같이 작성 또는 <div onClick={() => {}} aria-hidden="true"/>와 같이 작성해야함
+    "jsx-a11y/no-static-element-interactions": "off", // div, span과 같은 의미 없는 태그에 이벤트와 같은 상호작용 부여시 역할 값을 부여해야하는 rule  <div onClick={() => {}} role="button" />
+    "import/prefer-default-export": "off", // 하나의 모듈에서 내보내기(export)가 1개만 있을 경우 default 키워드를 써야한다는 rule (export * 은 이 규칙에 해당 x )
+    "@typescript-eslint/ban-types": "off", // 일관성과 안전을 위해 특정 유형 금지  (incorrect) const a:String ='foo'  (correct) const b:string = 'foo'
+    "@typescript-eslint/ban-ts-comment": "off", // `@ts-<directive>` 주석 금지 하거나 지시문 뒤에 설명이 필요한 rule
+    "@typescript-eslint/no-this-alias": "off", // this 사용 금지 rule
+    "react/no-this-in-sfc": "off", // stateless functional components 내에서 this 사용 금지 rule
+    "react/destructuring-assignment": "off", // props, state, context를 일관되게 사용할 수 있는 rule, ( always or never ) always -> 구조 분해 할당을 이용해서 props 사용해야함, never -> 구조 분해 할당 사용 x props 사용
+    "camelcase": "off", // camelcase 사용해야하는 rule, 상수의 경우 모두 대문자일 경우만 underscore(_) 허용
+    "react/jsx-props-no-spreading": "off", // props로 spread로 보내는 것을 방지하는 rule
+    "react/jsx-fragments": [
+      // Fragment를 강제할 수 standard 또는 shorthand로 강제할 수 있는 rule   mode -> element -> <React.Fragment></React.Fragment>, syntax -> <></>
+      "error",
+      "element"
+    ],
+    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+    "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
+    "no-underscore-dangle": "off", // 식별자의 시작 또는 끝에 underscore 방지 rule
+    "@typescript-eslint/no-unused-vars": "error", // 사용하지 않는 변수가 있을 때 에러
+    // airbnb에서 19버전 부터 function 키워드로 컴포넌트 만들지 않으면 에러 나도록 설정해서 화살표 함수도 가능하게끔 변경 해당 이슈 github주소 -> https://github.com/airbnb/javascript/issues/2505
+    "react/function-component-definition": [
+      "error",
+      {
+        "namedComponents": ["function-declaration", "arrow-function"]
+      }
+    ],
+    "default-param-last": "off", // 함수에서 매개변수의 default값은 마지막에만 적용이 가능하다는 룰.
+    "react/jsx-no-useless-fragment": "off", // Fragment 사용 시 2개 이상의 children이 와야 하는 린트
+    "no-unsafe-optional-chaining": "off", // 옵셔널 체이닝을 이용하여 해당 표현식을 객체, 숫자, 함수로 취급하는 것을 금지하는 린트 (obj?.getName() => undefined()와 같이 해석될 수 있음)
+    "react/no-unstable-nested-components": ["error", { "allowAsProps": true }],
+    "react/no-unknown-property": ["error", { "ignore": ["css"] }]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    },
+    "progress": {
+      "hide": false,
+      "successMessage": "Lint DONE!"
+    }
+  }
+}
